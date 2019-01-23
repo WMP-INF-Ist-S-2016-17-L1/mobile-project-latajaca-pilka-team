@@ -121,6 +121,6 @@ public class BallControlScript : MonoBehaviour {
 	// Method to restart current scene
 	void RestartScene()
 	{
-		SceneManager.LoadScene ("Scene01");
+		SceneManager.LoadScene ("Level1");
 	}
 }
