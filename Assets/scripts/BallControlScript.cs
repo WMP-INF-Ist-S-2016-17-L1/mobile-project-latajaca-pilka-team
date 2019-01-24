@@ -29,16 +29,33 @@ public class BallControlScript : MonoBehaviour {
 	// Variable to be set to true if you win
 	static bool youWin;
 
-	// Reference to WinText game object to control its appearance
-	// Text game object can be added in inspector because of [SerializeField] line
-	[SerializeField]
+    static bool isWinnerUIShown;
+    static bool isLooserUIShown;
+
+    // Reference to WinText game object to control its appearance
+    // Text game object can be added in inspector because of [SerializeField] line
+    [SerializeField]
 	GameObject winText;
 
-	// Use this for initialization
-	void Start () {
+    [SerializeField]
+    GameObject looseText;
+
+    [SerializeField]
+    GameObject nextLevelButton;
+
+    [SerializeField]
+    GameObject mainMenuButton;
+
+    [SerializeField]
+    GameObject restartLevelButton;
+    
+
+    // Use this for initialization
+    void Start () {
 
 		// Turn WinText off at the start
 		winText.gameObject.SetActive(false);
+        looseText.gameObject.SetActive(false);
 
 		// You don't win at the start
 		youWin = false;
@@ -57,7 +74,15 @@ public class BallControlScript : MonoBehaviour {
 
 		// Set BallAlive animation
 		anim.SetBool ("BallDead", isDead);
-	}
+
+        nextLevelButton.gameObject.SetActive(false);
+        restartLevelButton.gameObject.SetActive(false);
+        mainMenuButton.gameObject.SetActive(false);
+
+        isWinnerUIShown = false;
+        isLooserUIShown = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -69,16 +94,16 @@ public class BallControlScript : MonoBehaviour {
 
 		// if isDead is true
 		if (isDead) {
+            looseText.gameObject.SetActive(true);
 
 			// then ball movement is stopped
 			rb.velocity = new Vector2 (0, 0);
 
 			// Set Animators BallDead variable to true to switch to 
 			anim.SetBool ("BallDead", isDead);
-
-			// Restart scene to play again in 1 seconds
-			Invoke ("RestartScene", 1f);
-		}
+            restartLevelButton.gameObject.SetActive(true);
+            mainMenuButton.gameObject.SetActive(true);
+        }
 
 		// If you win
 		if (youWin) {
@@ -91,10 +116,19 @@ public class BallControlScript : MonoBehaviour {
 
 			// switch to Ball Dead Animation so ball falls into exit hole
 			anim.SetBool("BallDead", true);
+            nextLevelButton.gameObject.SetActive(true);
+            mainMenuButton.gameObject.SetActive(true);
+        }
 
-			// Restart scene to play again in 2 seconds
-			Invoke ("RestartScene", 2f);
-		}
+        if (isWinnerUIShown)
+        {
+            
+        }
+
+        if (isLooserUIShown)
+        {
+            
+        }
 
 	}
 
@@ -118,9 +152,21 @@ public class BallControlScript : MonoBehaviour {
 		youWin = true;
 	}
 
+    public static void showWinnerUI()
+    {
+        isWinnerUIShown = true;
+    }
+
+    public static void showLooserUI()
+    {
+        isLooserUIShown = true;
+    }
+
 	// Method to restart current scene
 	void RestartScene()
 	{
 		SceneManager.LoadScene ("Level1");
 	}
+
+  
 }

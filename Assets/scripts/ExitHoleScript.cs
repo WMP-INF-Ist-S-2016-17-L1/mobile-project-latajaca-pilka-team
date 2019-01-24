@@ -9,5 +9,6 @@ public class ExitHoleScript : MonoBehaviour {
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		BallControlScript.setYouWinToTrue ();
+        BallControlScript.showWinnerUI();
 	}
 }
