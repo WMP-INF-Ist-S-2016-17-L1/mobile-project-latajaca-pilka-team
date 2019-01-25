@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Klasa skryptu podpiętego do fioletowych dziur
 public class DeathHoleScript : MonoBehaviour {
 
-	// If ball touches Death holes collider
-	// then isDead variable of BallControlScript is set to true
+	// Metoda wywoływana podczas najechania piłki na fioletową dziurę
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		BallControlScript.setIsDeadTrue ();

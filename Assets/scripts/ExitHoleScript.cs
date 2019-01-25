@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Klasa skryptu podpiętego do błękitnej dziury
 public class ExitHoleScript : MonoBehaviour {
 
-	// If ball touches Exit holes collider
-	// then youWin variable of BallControlScript is set to true
+	// Metoda wywoływana podczas najechania piłki na błękitną dziurę
 	void OnTriggerEnter2D (Collider2D col)
 	{
 		BallControlScript.setYouWinToTrue ();
