@@ -9,6 +9,7 @@ public class MainScripts : MonoBehaviour
     public void ChangeLevel(string sceneName)
     {
         Application.LoadLevel(sceneName);
+        BallControlScript.hideUI();
     }
 
     public void ToMainMenu()

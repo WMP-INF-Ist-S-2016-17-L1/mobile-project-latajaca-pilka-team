@@ -94,43 +94,52 @@ public class BallControlScript : MonoBehaviour {
 
 		// if isDead is true
 		if (isDead) {
-            looseText.gameObject.SetActive(true);
 
 			// then ball movement is stopped
 			rb.velocity = new Vector2 (0, 0);
 
 			// Set Animators BallDead variable to true to switch to 
 			anim.SetBool ("BallDead", isDead);
-            restartLevelButton.gameObject.SetActive(true);
-            mainMenuButton.gameObject.SetActive(true);
+
         }
 
 		// If you win
 		if (youWin) {
 
-			// then turn YouWin sign on
-			winText.gameObject.SetActive (true);
+			if (SceneManager.GetActiveScene().name.Equals("Level5"))
+            {
+                Invoke("ChangeSceneToEnd", 2f);
+            }
+			
 
 			// ball movement is not allowed anymore
 			moveAllowed = false;
 
 			// switch to Ball Dead Animation so ball falls into exit hole
 			anim.SetBool("BallDead", true);
+            
+        }
+        
+        if (isWinnerUIShown && !SceneManager.GetActiveScene().name.Equals("Level5"))
+        {
+            winText.gameObject.SetActive(true);
             nextLevelButton.gameObject.SetActive(true);
             mainMenuButton.gameObject.SetActive(true);
         }
 
-        if (isWinnerUIShown)
-        {
-            
-        }
-
         if (isLooserUIShown)
         {
-            
+            looseText.gameObject.SetActive(true);
+            restartLevelButton.gameObject.SetActive(true);
+            mainMenuButton.gameObject.SetActive(true);
         }
 
 	}
+
+    void ChangeSceneToEnd()
+    {
+        Application.LoadLevel("End");
+    }
 
 	void FixedUpdate()
 	{
@@ -155,6 +164,12 @@ public class BallControlScript : MonoBehaviour {
     public static void showWinnerUI()
     {
         isWinnerUIShown = true;
+    }
+
+    public static void hideUI()
+    {
+        isWinnerUIShown = false;
+        isLooserUIShown = false;
     }
 
     public static void showLooserUI()
